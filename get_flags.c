@@ -32,3 +32,4 @@ int get_flags(const char *format, int *i)
 
 	return (flags);
 }
+// ginika's contribution to the printf
