@@ -1,79 +1,430 @@
-# ALX Software Enginering Printf Team Project
-This team project is a custom made printf function for the C programming language called \_printf. It has been optimized to take various inputs and optional arguments based exactly on how the standard library function printf works. We submitted this as part of the ALX software engineering course requirement for grading.
+ - printf project
 
-## **Synopsis**
-This function **\_printf()** writes output to stdout, the standard output stream with the format and options without making use of any of the standard library files. It was written to use a local buffer of 1024 bytes when printing although it can print larger sets of data.
+##  Collaborators
+-  Smartempire007(Nwadike Odira Joseph)
+- Mayoabebs(Mayor Adebayo)
 
-The \_printf() function returns the total number of characters printed to the stdout(excluding the null byte at the end of strings) after a successful execution.
+## Requirements
 
-If an output error is encountered, a negative value of -1 is returned.
+### General
 
-The prototype of this function is:  **int _printf(const char *format, ...);***
+-   Allowed editors:  `vi`,  `vim`,  `emacs`
+-   All your files will be compiled on Ubuntu 20.04 LTS using  `gcc`, using the options  `-Wall -Werror -Wextra -pedantic -std=gnu89`
+-   All your files should end with a new line
+-   A  `README.md`  file, at the root of the folder of the project is mandatory
+-   Your code should use the  `Betty`  style. It will be checked using  [betty-style.pl](https://github.com/holbertonschool/Betty/blob/master/betty-style.pl "betty-style.pl")  and  [betty-doc.pl](https://github.com/holbertonschool/Betty/blob/master/betty-doc.pl "betty-doc.pl")
+-   You are not allowed to use global variables
+-   No more than 5 functions per file
+-   In the following examples, the  `main.c`  files are shown as examples. You can use them to test your functions, but you don’t have to push them to your repo (if you do we won’t take them into account). We will use our own  `main.c`  files at compilation. Our  `main.c`  files might be different from the one shown in the examples
+-   The prototypes of all your functions should be included in your header file called  `main.h`
+-   Don’t forget to push your header file
+-   All your header files should be include guarded
+-   Note that we will not provide the  `_putchar`  function for this project
 
-This means that it has one mandatory format argument, and an extra number of arguments that can be none, or many.
+### GitHub
 
-**Format of the format string**
+**There should be one project repository per group. The other members do not fork or clone the project to ensure only one of the team has the repository in their github account otherwise you risk scoring 0%**
 
-The format string is a character string starting and ending with double quotes. The format string is composed of zero or more directives; ordinary characters (not %), and conversion specifications, each of which results in fetching zero or more subsequent arguments.
+## More Info
 
-Each conversion specification is introduced by the character **%** and ends with a **conversion specifier**. In between there may be (in this order):
+### Authorized functions and macros
 
-> Zero or more **flags**
->
-> An optional field **width**
->
-> An optional **precision** modifier
->
-> An optional **length** modifier
+-   `write`  (`man 2 write`)
+-   `malloc`  (`man 3 malloc`)
+-   `free`  (`man 3 free`)
+-   `va_start`  (`man 3 va_start`)
+-   `va_end`  (`man 3 va_end`)
+-   `va_copy`  (`man 3 va_copy`)
+-   `va_arg`  (`man 3 va_arg`)
 
-**The flag characters**
+### Compilation
 
-|**Flag**| Description  |
-|--|--|
-|**#**| For **o** conversions the first character of the output string is made zero (by prefixing a 0 if it was not zero already).  For **x** and **X** conversions, a nonzero result has the string "**0x**" or "**0X**" respectively added. |
-|**0**| (Not implemented yet) The  value should be zero padded. For **d**, **i**, **o**, **u**, **x**, and **X** the converted value is padded on the left with zeros. If the 0 and **-** flags both appear,the **0** flag is ignored. If a precision is given with a numeric conversion, the **0** flag is ignored.|
-|**-**|(Minus sign, not implemented yet) The converted value is to be left adjusted on the field boundary, (Default is right justification) and  padded  with  blanks  in  the right rather than on the left with blanks or zeros. This flag overrides **0** if both are given.|
-|' '| (Blank Space) The argument is padded with a single blank space before a positive number or empty string produced by a signed conversion.|
-|**+**| A sign (+ or -) should always be placed before a number produced with a signed conversion.  By default, only negative numbers have this sign.|
+-   Your code will be compiled this way:
 
-**The field width**
+```
+$ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c
 
-An  optional decimal digit string (with nonzero first digit) specifying a minimum field width.  If  the  converted  value  has  fewer characters  than  the field width, it will be padded with spaces on the left if the flag - is not present, and on the right  if  it  is present.  A character * can be used instead of a decimal string. In this case, an argument passed to the function will be taken as  the width value.
+```
 
-    printf("%5d", num);
+![](https://storage.googleapis.com/pieces-web-extensions-cdn/pieces.png)Copy and Save![](https://storage.googleapis.com/pieces-web-extensions-cdn/link.png)Share
 
-or
+-   As a consequence, be careful not to push any c file containing a  `main`  function in the root directory of your project (you could have a  `test`  folder containing all your tests files including  `main`  functions)
+-   Our main files will include your main header file (`main.h`):  `#include main.h`
+-   You might want to look at the gcc flag  `-Wno-format`  when testing with your  `_printf`  and the standard  `printf`. Example of test file that you could use:
 
-	printf("%*d", width, num);
+```
+alex@ubuntu:~/c/printf$ cat main.c 
+#include <limits.h>
+#include <stdio.h>
+#include "main.h"
 
-**The precision**
+/**
+ * main - Entry point
+ *
+ * Return: Always 0
+ */
+int main(void)
+{
+    int len;
+    int len2;
+    unsigned int ui;
+    void *addr;
 
- An  optional  precision,  in  the  form  of a period ('.')  followed by an optional decimal digit string.  A negative precision is taken  as  if  the precision were omitted.  This gives the minimum number of digits to appear for d, i, o, u, x, and X conversions,  or the  maximum  number of characters to be printed from a string for s and S conversions. A character * can be used instead of a  decimal string. In this case, an argument passed to the function will be taken as the precision value.
+    len = _printf("Let's try to printf a simple sentence.\n");
+    len2 = printf("Let's try to printf a simple sentence.\n");
+    ui = (unsigned int)INT_MAX + 1024;
+    addr = (void *)0x7ffe637541f0;
+    _printf("Length:[%d, %i]\n", len, len);
+    printf("Length:[%d, %i]\n", len2, len2);
+    _printf("Negative:[%d]\n", -762534);
+    printf("Negative:[%d]\n", -762534);
+    _printf("Unsigned:[%u]\n", ui);
+    printf("Unsigned:[%u]\n", ui);
+    _printf("Unsigned octal:[%o]\n", ui);
+    printf("Unsigned octal:[%o]\n", ui);
+    _printf("Unsigned hexadecimal:[%x, %X]\n", ui, ui);
+    printf("Unsigned hexadecimal:[%x, %X]\n", ui, ui);
+    _printf("Character:[%c]\n", 'H');
+    printf("Character:[%c]\n", 'H');
+    _printf("String:[%s]\n", "I am a string !");
+    printf("String:[%s]\n", "I am a string !");
+    _printf("Address:[%p]\n", addr);
+    printf("Address:[%p]\n", addr);
+    len = _printf("Percent:[%%]\n");
+    len2 = printf("Percent:[%%]\n");
+    _printf("Len:[%d]\n", len);
+    printf("Len:[%d]\n", len2);
+    _printf("Unknown:[%r]\n");
+    printf("Unknown:[%r]\n");
+    return (0);
+}
+alex@ubuntu:~/c/printf$ gcc -Wall -Wextra -Werror -pedantic -std=gnu89 -Wno-format *.c
+alex@ubuntu:~/c/printf$ ./printf
+Let's try to printf a simple sentence.
+Let's try to printf a simple sentence.
+Length:[39, 39]
+Length:[39, 39]
+Negative:[-762534]
+Negative:[-762534]
+Unsigned:[2147484671]
+Unsigned:[2147484671]
+Unsigned octal:[20000001777]
+Unsigned octal:[20000001777]
+Unsigned hexadecimal:[800003ff, 800003FF]
+Unsigned hexadecimal:[800003ff, 800003FF]
+Character:[H]
+Character:[H]
+String:[I am a string !]
+String:[I am a string !]
+Address:[0x7ffe637541f0]
+Address:[0x7ffe637541f0]
+Percent:[%]
+Percent:[%]
+Len:[12]
+Len:[12]
+Unknown:[%r]
+Unknown:[%r]
+alex@ubuntu:~/c/printf$
 
-    printf("%.3d", num);
+```
 
-  or
+![](https://storage.googleapis.com/pieces-web-extensions-cdn/pieces.png)Copy and Save![](https://storage.googleapis.com/pieces-web-extensions-cdn/link.png)Share
 
-    printf("%.*d", precision, num);
+-   We strongly encourage you to work all together on a set of tests
+-   If the task does not specify what to do with an edge case, do the same as  `printf`
 
-**The length modifiers**
+### Copyright - Plagiarism
 
-|Modifier| Description |
-|--|--|
-|**l**| An integer conversion to a **long int** or **unsigned long int** argument.  |
-|**h**| An integer conversion to a **short int** or **unsigned short int** argument. |
+-   You are tasked to come up with solutions for the tasks below yourself to meet with the above learning objectives.
+-   You will not be able to meet the objectives of this or any following project by copying and pasting someone else’s work.
+-   You are not allowed to publish any content of this project.
+-   Any form of plagiarism is strictly forbidden and will result in removal from the program.
 
-**The conversion specifier**
+## Tasks
 
-|Specifier| Description |
-|--|--|
-|**d, i**|The argument **int** is converted to a signed decimal notation. If precision is present,it gives the minimum number of digits that must appear; if the converted value requires fewer digits, then it is padded with zeros on the left. Default precision is 1.|
-|**o, u, x, X**|The argument is converted to unsigned octal (**o**), unsigned decimal (**u**), or unsigned hexamedical (**x** and **X**) notation. The letters abcdef are used for x conversion and the letters ABCDEF are used for X conversion. If precision is present, it will give  the  minimum  number  of  digits  that  must appear; if the converted value requires fewer digits, then it will be padded with zeros. By default the precision is 1.  |
-|**c**|The  int argument is converted to an unsigned char and the resulting character is written. The representation of characters is based off the ASCII coding.|
-|**s**|The argument received is expected to be a pointer type char * to an array of characters.  Characters from this array are printed up  to  (but  not including) a null byte  (**'\0'**).  If precision is specified, then this will determine how many characters are taken into account for printing.|
-|**p**|A void * pointer argument is printed as hexadecimal in lower caps representing an adress in memory.|
-|**%**|A  ' **%** ' character is written and no conversion is made. The specification is as follows: **%%**. |
-|**b**|The argument is converted to an unsigned int value and then operated to get its binary representation (base 2).|
-|**S**| The  argument  received  is expected to be a pointer type char * to an array of characters.  Characters from this array are printed up to (but not including) a null byte  ('\0').  Non printable characters (0 < ASCII value < 32 or >= 127) are printed this way: \x, followed by  the  ASCII  code value in hexadecimal (upper case - always 2 characters). |
-|**r**|The  argument received is expected to be a pointer type char * to an array of characters.  Characters from this array are printed in reverse order up to (but not including) a null byte  ('\0').  |
-|**R**|The argument received is expected to be a pointer type char * to an array of characters.  Characters from this array  are  encoded  to  ROT13  and printed in order up to (but not including a null byte  ('\0').  |
+### 0. I'm not going anywhere. You can print that wherever you want to. I'm here and I'm a Spur for life
+
+mandatory
+
+Write a function that produces output according to a format.
+
+-   Prototype:  `int _printf(const char *format, ...);`
+-   Returns: the number of characters printed (excluding the null byte used to end output to strings)
+-   write output to stdout, the standard output stream
+-   `format`  is a character string. The format string is composed of zero or more directives. See  `man 3 printf`  for more detail. You need to handle the following conversion specifiers:
+    -   `c`
+    -   `s`
+    -   `%`
+-   You don’t have to reproduce the buffer handling of the C library  `printf`  function
+-   You don’t have to handle the flag characters
+-   You don’t have to handle field width
+-   You don’t have to handle precision
+-   You don’t have to handle the length modifiers
+
+**Repo:**
+
+-   GitHub repository:  `printf`
+
+Done?  Help  Check your code  Get a sandbox
+
+### 1. Education is when you read the fine print. Experience is what you get if you don't
+
+mandatory
+
+Handle the following conversion specifiers:
+
+-   `d`
+-   `i`
+-   You don’t have to handle the flag characters
+-   You don’t have to handle field width
+-   You don’t have to handle precision
+-   You don’t have to handle the length modifiers
+
+**Repo:**
+
+-   GitHub repository:  `printf`
+
+Done?  Help  Check your code  Get a sandbox
+
+### 2. With a face like mine, I do better in print
+
+#advanced
+
+Handle the following custom conversion specifiers:
+
+-   `b`: the unsigned int argument is converted to binary
+
+```
+alex@ubuntu:~/c/printf$ cat main.c
+#include "main.h"
+
+/**
+ * main - Entry point
+ *
+ * Return: Always 0
+ */
+int main(void)
+{
+    _printf("%b\n", 98);
+    return (0);
+}
+alex@ubuntu:~/c/printf$ gcc -Wall -Wextra -Werror -pedantic -std=gnu89 main.c
+alex@ubuntu:~/c/printf$ ./a.out
+1100010
+alex@ubuntu:~/c/printf$
+
+```
+
+![](https://storage.googleapis.com/pieces-web-extensions-cdn/pieces.png)Copy and Save![](https://storage.googleapis.com/pieces-web-extensions-cdn/link.png)Share
+
+**Repo:**
+
+-   GitHub repository:  `printf`
+
+Done?  Help  Check your code
+
+### 3. What one has not experienced, one will never understand in print
+
+#advanced
+
+Handle the following conversion specifiers:
+
+-   `u`
+-   `o`
+-   `x`
+-   `X`
+-   You don’t have to handle the flag characters
+-   You don’t have to handle field width
+-   You don’t have to handle precision
+-   You don’t have to handle the length modifiers
+
+**Repo:**
+
+-   GitHub repository:  `printf`
+
+Done?  Help  Check your code  Get a sandbox
+
+### 4. Nothing in fine print is ever good news
+
+#advanced
+
+Use a local buffer of 1024 chars in order to call  `write`  as little as possible.
+
+**Repo:**
+
+-   GitHub repository:  `printf`
+
+Done?  Help  Check your code  Get a sandbox
+
+### 5. My weakness is wearing too much leopard print
+
+#advanced
+
+Handle the following custom conversion specifier:
+
+-   `S`  : prints the string.
+-   Non printable characters (0 < ASCII value < 32 or >= 127) are printed this way:  `\x`, followed by the ASCII code value in hexadecimal (upper case - always 2 characters)
+
+```
+alex@ubuntu:~/c/printf$ cat main.c
+#include "main.h"
+
+/**
+ * main - Entry point
+ *
+ * Return: Always 0
+ */
+int main(void)
+{
+    _printf("%S\n", "Best\nSchool");
+    return (0);
+}
+alex@ubuntu:~/c/printf$ gcc -Wall -Wextra -Werror -pedantic -std=gnu89 main.c
+alex@ubuntu:~/c/printf$ ./a.out
+Best\x0ASchool
+alex@ubuntu:~/c/printf$
+
+```
+
+![](https://storage.googleapis.com/pieces-web-extensions-cdn/pieces.png)Copy and Save![](https://storage.googleapis.com/pieces-web-extensions-cdn/link.png)Share
+
+**Repo:**
+
+-   GitHub repository:  `printf`
+
+Done?  Help  Check your code
+
+### 6. How is the world ruled and led to war? Diplomats lie to journalists and believe these lies when they see them in print
+
+#advanced
+
+Handle the following conversion specifier:  `p`.
+
+-   You don’t have to handle the flag characters
+-   You don’t have to handle field width
+-   You don’t have to handle precision
+-   You don’t have to handle the length modifiers
+
+**Repo:**
+
+-   GitHub repository:  `printf`
+
+Done?  Help  Check your code  Get a sandbox
+
+### 7. The big print gives and the small print takes away
+
+#advanced
+
+Handle the following flag characters for non-custom conversion specifiers:
+
+-   `+`
+-   space
+-   `#`
+
+**Repo:**
+
+-   GitHub repository:  `printf`
+
+Done?  Help  Check your code  Get a sandbox
+
+### 8. Sarcasm is lost in print
+
+#advanced
+
+Handle the following length modifiers for non-custom conversion specifiers:
+
+-   `l`
+-   `h`
+
+Conversion specifiers to handle:  `d`,  `i`,  `u`,  `o`,  `x`,  `X`
+
+**Repo:**
+
+-   GitHub repository:  `printf`
+
+Done?  Help  Check your code  Get a sandbox
+
+### 9. Print some money and give it to us for the rain forests
+
+#advanced
+
+Handle the field width for non-custom conversion specifiers.
+
+**Repo:**
+
+-   GitHub repository:  `printf`
+
+Done?  Help  Check your code  Get a sandbox
+
+### 10. The negative is the equivalent of the composer's score, and the print the performance
+
+#advanced
+
+Handle the precision for non-custom conversion specifiers.
+
+**Repo:**
+
+-   GitHub repository:  `printf`
+
+Done?  Help  Check your code  Get a sandbox
+
+### 11. It's depressing when you're still around and your albums are out of print
+
+#advanced
+
+Handle the  `0`  flag character for non-custom conversion specifiers.
+
+**Repo:**
+
+-   GitHub repository:  `printf`
+
+Done?  Help  Check your code  Get a sandbox
+
+### 12. Every time that I wanted to give up, if I saw an interesting textile, print what ever, suddenly I would see a collection
+
+#advanced
+
+Handle the  `-`  flag character for non-custom conversion specifiers.
+
+**Repo:**
+
+-   GitHub repository:  `printf`
+
+Done?  Help  Check your code  Get a sandbox
+
+### 13. Print is the sharpest and the strongest weapon of our party
+
+#advanced
+
+Handle the following custom conversion specifier:
+
+-   `r`  : prints the reversed string
+
+**Repo:**
+
+-   GitHub repository:  `printf`
+
+Done?  Help  Check your code  Get a sandbox
+
+### 14. The flood of print has turned reading into a process of gulping rather than savoring
+
+#advanced
+
+Handle the following custom conversion specifier:
+
+-   `R`: prints the rot13'ed string
+
+**Repo:**
+
+-   GitHub repository:  `printf`
+
+Done?  Help  Check your code  Get a sandbox
+
+### 15. *
+
+#advanced
+
+All the above options work well together.
+
+**Repo:**
+-   GitHub repository:  `printf`
